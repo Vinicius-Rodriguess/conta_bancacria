@@ -1,5 +1,6 @@
 import readlinesync = require("readline-sync")
 import { colors } from "./src/util/Cores"
+import { Conta } from "./src/model/Conta"
 
 export function main() {
     let opcao: number
