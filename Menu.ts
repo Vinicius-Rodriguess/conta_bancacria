@@ -1,5 +1,5 @@
 import readlinesync = require("readline-sync")
-import { colors } from "./util/Cores"
+import { colors } from "./src/util/Cores"
 
 export function main() {
     let opcao: number
@@ -65,7 +65,7 @@ export function sobre(): void {
     console.log(`${colors.bg.blackbright}                                                                                      ${colors.reset}`)
     console.log(`${colors.bg.white}${colors.fg.black}                Projeto Desenvolvido por: Vinicius Rodrigues                          ${colors.reset}`)
     console.log(`${colors.bg.white}${colors.fg.black}                Generation Brasil - generation@generation.org                         ${colors.reset}`)
-    console.log(`${colors.bg.white}${colors.fg.black}                https://github.com/Vinicius-Rodriguess/conta_bancacria                ${colors.reset}`)
+    console.log(`${colors.bg.white}${colors.fg.black}                https://github.com/Vinicius-Rodriguess/conta_bancaria                 ${colors.reset}`)
     console.log(`${colors.bg.blackbright}                                                                                      ${colors.reset}`)
 }
 
