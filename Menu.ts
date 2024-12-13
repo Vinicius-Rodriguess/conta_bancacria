@@ -1,18 +1,21 @@
 import readlinesync = require("readline-sync")
 import { colors } from "./src/util/Cores"
+import { ContaController } from "./src/controller/ContaController"
 import { ContaCorrente } from "./src/model/ContaCorrente"
 import { ContaPoupanca } from "./src/model/ContaPoupanca"
 
 export function main() {
-    let opcao: number
+    let opcao, agencia, numero, tipo, saldo, limite, aniversario, titular: string
+    const tipoContas = ["Conta Corrente", "Conta Poupanca"]
+    const contas = new ContaController()
 
-    const cc1 = new ContaCorrente(2,123,1, "Andressa", 200000, 1000)
-    cc1.sacar(200100)
-    cc1.visualizar()
-
-    const cp1 = new ContaPoupanca(3,123,1, "Vinicebas", 900000, 10)
-    cp1.depositar(10000000)
-    cp1.visualizar()
+    //Novas Instâncias da Classe ContaCorrente (Objetos)
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 1234, 1, 'Amanda Magro', 1000000.00, 100000.00))
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 4578, 1, 'João da Silva', 1000.00, 100.00))
+ 
+    // Novas Instâncias da Classe ContaPoupança (Objetos)
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5789, 2, "Geana Almeida", 10000, 10))
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5698, 2, "Jean Lima", 15000, 15))
 
     while (true) {
         console.log(`${colors.bg.blackbright}${colors.fg.black}                                           ${colors.reset}`)
@@ -40,31 +43,72 @@ export function main() {
         switch (opcao) {
             case 1:
                 console.log("\n\nCriar Conta\n\n")
+
+                console.log("Digite o Número da Agência: ")
+                agencia = readlinesync.questionInt("")
+
+                console.log("Digite o Nome do Titular: ")
+                titular = readlinesync.question("")
+
+                console.log("Escolha o tipo da Conta: ")
+                tipo = readlinesync.keyInSelect(tipoContas, "", {cancel: false}) + 1 
+
+                console.log("Digite o Saldo da Conta: ")
+                saldo = readlinesync.questionFloat("")
+
+                switch(tipo) {
+                    case 1:
+                        console.log("Digite o Limite da Conta: ")
+                        limite = readlinesync.questionFloat("")
+                        contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite))
+                    break
+                    case 2:
+                        console.log("Digite o Dia do Aniversário da Poupaça: ")
+                        aniversario = readlinesync.questionFloat("")
+                        contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario))
+                    break
+                }
+
+                keyPress()
             break
             case 2:
                 console.log("\n\nListar todas as Contas\n\n")
+                contas.listarTodas()
+                keyPress()
             break
             case 3:
                 console.log("\n\nConsultar dados da Conta - por número\n\n")
+
+                console.log("Digite o número da conta: ")
+                numero = readlinesync.questionInt("")
+
+                contas.procurarPorNumero(numero)
+
+                keyPress()
             break
             case 4:
                 console.log("\n\nAtualizar dados da Conta\n\n")
+                keyPress()
             break
             case 5:
                 console.log("\n\nApagar uma Conta\n\n")
+                keyPress()
             break
             case 6:
                 console.log("\n\nSaque\n\n")
+                keyPress()
             break
             case 7:
                 console.log("\n\nDepósito\n\n")
+                keyPress()
             break
             case 8:
                 console.log("\n\nTransferência entre Contas\n\n")
+                keyPress()
             break
             default:
                 console.log("\nOpção Inválida!\n")
-
+                keyPress()
             break
         }
     }
@@ -77,6 +121,12 @@ export function sobre(): void {
     console.log(`${colors.bg.white}${colors.fg.black}                Generation Brasil - generation@generation.org                         ${colors.reset}`)
     console.log(`${colors.bg.white}${colors.fg.black}                https://github.com/Vinicius-Rodriguess/conta_bancaria                 ${colors.reset}`)
     console.log(`${colors.bg.blackbright}                                                                                      ${colors.reset}`)
+}
+
+function keyPress(): void {
+    console.log(colors.reset, "");
+    console.log("\nPressione enter para continuar...");
+    readlinesync.prompt();
 }
 
 main()
