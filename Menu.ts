@@ -5,7 +5,8 @@ import { ContaCorrente } from "./src/model/ContaCorrente"
 import { ContaPoupanca } from "./src/model/ContaPoupanca"
 
 export function main() {
-    let opcao, agencia, numero, tipo, saldo, limite, aniversario, titular: string
+    let opcao, agencia, numero, tipo, saldo, limite, aniversario, numeroDestino, valor: number
+    let titular: string
     const tipoContas = ["Conta Corrente", "Conta Poupanca"]
     const contas = new ContaController()
 
@@ -127,7 +128,7 @@ export function main() {
             case 5:
                 console.log("\n\nApagar uma Conta\n\n")
 
-                console.log("Digite o novo Número da Conta: ")
+                console.log("Digite o Número da Conta: ")
                 numero = readlinesync.questionInt("")
 
                 contas.deletar(numero)
@@ -136,14 +137,44 @@ export function main() {
                 break
             case 6:
                 console.log("\n\nSaque\n\n")
+
+                console.log("Digite o Número da Conta: ")
+                numero = readlinesync.questionInt("")
+
+                console.log("Digite o valor do Saque: ")
+                valor = readlinesync.questionFloat("")
+
+                contas.sacar(numero, valor)
+
                 keyPress()
                 break
             case 7:
                 console.log("\n\nDepósito\n\n")
+
+                console.log("Digite o Número da Conta: ")
+                numero = readlinesync.questionInt("")
+
+                console.log("Digite o valor do Saque: ")
+                valor = readlinesync.questionFloat("")
+
+                contas.depositar(numero, valor)
+
                 keyPress()
                 break
             case 8:
                 console.log("\n\nTransferência entre Contas\n\n")
+
+                console.log("Digite o Número da Conta de origem: ")
+                numero = readlinesync.questionInt("")
+                
+                console.log("Digite o Número da Conta de destino: ")
+                numeroDestino = readlinesync.questionInt("")
+
+                console.log("Digite o valor do Transferencia: ")
+                valor = readlinesync.questionFloat("")
+
+                contas.transferir(numero, numeroDestino, valor)
+
                 keyPress()
                 break
             default:
