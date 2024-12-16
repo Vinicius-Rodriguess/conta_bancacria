@@ -12,7 +12,7 @@ export function main() {
     //Novas Instâncias da Classe ContaCorrente (Objetos)
     contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 1234, 1, 'Amanda Magro', 1000000.00, 100000.00))
     contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 4578, 1, 'João da Silva', 1000.00, 100.00))
- 
+
     // Novas Instâncias da Classe ContaPoupança (Objetos)
     contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5789, 2, "Geana Almeida", 10000, 10))
     contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5698, 2, "Jean Lima", 15000, 15))
@@ -51,31 +51,31 @@ export function main() {
                 titular = readlinesync.question("")
 
                 console.log("Escolha o tipo da Conta: ")
-                tipo = readlinesync.keyInSelect(tipoContas, "", {cancel: false}) + 1 
+                tipo = readlinesync.keyInSelect(tipoContas, "", { cancel: false }) + 1
 
                 console.log("Digite o Saldo da Conta: ")
                 saldo = readlinesync.questionFloat("")
 
-                switch(tipo) {
+                switch (tipo) {
                     case 1:
                         console.log("Digite o Limite da Conta: ")
                         limite = readlinesync.questionFloat("")
                         contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite))
-                    break
+                        break
                     case 2:
                         console.log("Digite o Dia do Aniversário da Poupaça: ")
                         aniversario = readlinesync.questionFloat("")
                         contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario))
-                    break
+                        break
                 }
 
                 keyPress()
-            break
+                break
             case 2:
                 console.log("\n\nListar todas as Contas\n\n")
                 contas.listarTodas()
                 keyPress()
-            break
+                break
             case 3:
                 console.log("\n\nConsultar dados da Conta - por número\n\n")
 
@@ -85,31 +85,71 @@ export function main() {
                 contas.procurarPorNumero(numero)
 
                 keyPress()
-            break
+                break
             case 4:
                 console.log("\n\nAtualizar dados da Conta\n\n")
+
+                console.log("Digite o número da conta: ")
+                numero = readlinesync.questionInt("")
+
+                let conta = contas.buscarNoArray(numero)
+
+                if (conta !== null) {
+                    console.log("Digite o novo Número da Agência: ")
+                    agencia = readlinesync.questionInt("")
+
+                    console.log("Digite o novo Nome do Titular: ")
+                    titular = readlinesync.question("")
+
+                    console.log("Digite o novo Saldo da Conta: ")
+                    saldo = readlinesync.questionFloat("")
+
+                    tipo = conta.tipo 
+                    
+                    switch (tipo) {
+                        case 1:
+                            console.log("Digite o novo Limite da Conta: ")
+                            limite = readlinesync.questionFloat("")
+                            contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite))
+                            break
+                        case 2:
+                            console.log("Digite o novo Dia do Aniversário da Poupaça: ")
+                            aniversario = readlinesync.questionFloat("")
+                            contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario))
+                            break
+                    }
+                } else {
+                    console.log("Conta não encontrada!")
+                }
+
                 keyPress()
-            break
+                break
             case 5:
                 console.log("\n\nApagar uma Conta\n\n")
+
+                console.log("Digite o novo Número da Conta: ")
+                numero = readlinesync.questionInt("")
+
+                contas.deletar(numero)
+
                 keyPress()
-            break
+                break
             case 6:
                 console.log("\n\nSaque\n\n")
                 keyPress()
-            break
+                break
             case 7:
                 console.log("\n\nDepósito\n\n")
                 keyPress()
-            break
+                break
             case 8:
                 console.log("\n\nTransferência entre Contas\n\n")
                 keyPress()
-            break
+                break
             default:
                 console.log("\nOpção Inválida!\n")
                 keyPress()
-            break
+                break
         }
     }
 
