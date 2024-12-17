@@ -2,11 +2,7 @@ import { Conta } from "../model/Conta";
 import { ContaRespository } from "../repository/ContaRepository";
 
 export class ContaController implements ContaRespository {
-
-    // Colecao Array que vai armazenar os Objetos Conta
     private listaContas = new Array<Conta>()
-
-    // Controlar os Numeros das Contas
     public numero: number = 0
 
     public procurarPorNumero(numero: number): void {
@@ -14,7 +10,6 @@ export class ContaController implements ContaRespository {
 
         if(buscaConta !== null) buscaConta.visualizar()
         else console.log("Conta não Encontrada!")
-
     }
 
     public listarTodas(): void {
@@ -48,7 +43,6 @@ export class ContaController implements ContaRespository {
         else console.log("Conta não Encontrada!")
     }
     
-    // Metodos Bancarios 
     public sacar(numero: number, valor: number): void {
         const buscaConta = this.buscarNoArray(numero)
         if(buscaConta !== null){
@@ -82,7 +76,6 @@ export class ContaController implements ContaRespository {
         }
     }
 
-    //Métodos Auxiliares
     public gerarNumero(): number {
         return ++this.numero
     }
@@ -95,5 +88,14 @@ export class ContaController implements ContaRespository {
         }
 
         return null
+    }
+
+    public procurarPorTitular(titular: string) {
+
+        let buscarPorTitular = this.listaContas.filter(conta => {
+            conta.titular.toUpperCase().includes(titular.toUpperCase())
+        })
+
+        buscarPorTitular.forEach(conta => conta.visualizar())
     }
 }

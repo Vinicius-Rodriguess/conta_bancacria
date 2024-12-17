@@ -80,9 +80,8 @@ export abstract class Conta {
                 tipo = "Tipo Invalido!"
         }
 
-        console.log("*******************************")
-        console.log("Dados da Conta")
-        console.log("*******************************")
+        console.log("\nDados da Conta: ")
+        console.log("                                ")
         console.log(`Número da Conta: ${this._numero}`)
         console.log(`Número da Agência: ${this._agencia}`)
         console.log(`Tipo da Conta: ${tipo}`)
